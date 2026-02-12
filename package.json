@@ -1,0 +1,23 @@
+{
+  "name": "shotog",
+  "version": "0.1.0",
+  "description": "Screenshot & OG images. One API call. — shotog.com",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create shotog-prod",
+    "db:migrate": "wrangler d1 execute shotog-prod --file=./migrations/001_init.sql",
+    "db:migrate:local": "wrangler d1 execute shotog-prod --local --file=./migrations/001_init.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260210.0",
+    "hono": "^4.11.9",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.64.0"
+  },
+  "dependencies": {
+    "@cf-wasm/resvg": "^0.3.3",
+    "@cf-wasm/satori": "^0.3.5"
+  }
+}

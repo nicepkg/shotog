@@ -1,0 +1,27 @@
+name = "shotog"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Allow importing .ttf files as ArrayBuffer
+[[rules]]
+type = "Data"
+globs = ["**/*.ttf"]
+fallthrough = true
+
+[observability]
+enabled = true
+
+# D1 Database for API keys and usage tracking
+[[d1_databases]]
+binding = "DB"
+database_name = "shotog-prod"
+database_id = "3604740c-571e-4606-9158-4dd0f695680c"
+
+# KV for rate limiting and caching metadata
+# [[kv_namespaces]]
+# binding = "CACHE_META"
+# id = "placeholder"
+
+[vars]
+ENVIRONMENT = "production"
