@@ -150,6 +150,28 @@ curl "${baseUrl}/v1/og?title=My%20Post&subtitle=Great%20read&template=blog&eyebr
     "author": "Jane Doe"
   }'</code></pre>
 
+    <h3>POST /v1/og/batch</h3>
+    <p>Generate up to 20 images in a single request. Returns JSON with base64 data URIs.</p>
+    <pre><code>curl -X POST ${baseUrl}/v1/og/batch \\
+  -H "Content-Type: application/json" \\
+  -H "X-Api-Key: sk_..." \\
+  -d '{
+    "images": [
+      {"id": "hero", "title": "My Product", "template": "product"},
+      {"id": "blog-1", "title": "First Post", "template": "blog", "author": "Alice"}
+    ],
+    "defaults": {"format": "png", "width": 1200, "domain": "example.com"}
+  }'
+
+<span class="cmt"># Response:</span>
+<span class="cmt"># {</span>
+<span class="cmt">#   "results": [</span>
+<span class="cmt">#     {"id":"hero","success":true,"dataUri":"data:image/png;base64,..."},</span>
+<span class="cmt">#     {"id":"blog-1","success":true,"dataUri":"data:image/png;base64,..."}  </span>
+<span class="cmt">#   ],</span>
+<span class="cmt">#   "summary": {"total":2,"succeeded":2,"failed":0}</span>
+<span class="cmt"># }</span></code></pre>
+
     <h2>Parameters</h2>
     <table>
       <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
@@ -166,6 +188,9 @@ curl "${baseUrl}/v1/og?title=My%20Post&subtitle=Great%20read&template=blog&eyebr
         <tr><td><code class="inline-code">format</code></td><td>string</td><td>No</td><td>Output format: png (default) or svg</td></tr>
         <tr><td><code class="inline-code">width</code></td><td>number</td><td>No</td><td>Image width, 200-2400 (default: 1200)</td></tr>
         <tr><td><code class="inline-code">height</code></td><td>number</td><td>No</td><td>Image height, 200-1260 (default: 630)</td></tr>
+        <tr><td><code class="inline-code">fontUrl</code></td><td>string</td><td>No</td><td>URL to a TTF/OTF font file (max 5MB, cached 1h)</td></tr>
+        <tr><td><code class="inline-code">avatar</code></td><td>string</td><td>No</td><td>Avatar image URL (for blog, social, testimonial templates)</td></tr>
+        <tr><td><code class="inline-code">logo</code></td><td>string</td><td>No</td><td>Logo image URL (for basic, product templates)</td></tr>
       </tbody>
     </table>
 
@@ -176,6 +201,7 @@ curl "${baseUrl}/v1/og?title=My%20Post&subtitle=Great%20read&template=blog&eyebr
         <tr><td><code class="inline-code">/v1/og/templates</code></td><td>GET</td><td>List all available templates</td></tr>
         <tr><td><code class="inline-code">/v1/keys</code></td><td>POST</td><td>Create a new API key (self-service)</td></tr>
         <tr><td><code class="inline-code">/v1/keys/usage</code></td><td>GET</td><td>Check usage (requires X-Api-Key header)</td></tr>
+        <tr><td><code class="inline-code">/v1/og/batch</code></td><td>POST</td><td>Batch generate up to 20 images (returns JSON with base64)</td></tr>
         <tr><td><code class="inline-code">/health</code></td><td>GET</td><td>Health check</td></tr>
       </tbody>
     </table>

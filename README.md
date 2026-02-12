@@ -4,7 +4,7 @@
 
 Generate stunning Open Graph images for your website with a single URL — no design tools, no headless browsers, no infrastructure to manage.
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://shotog.2214962083.workers.dev) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![API Status](https://img.shields.io/badge/API-v0.2.0-blue)](https://shotog.2214962083.workers.dev/health)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://shotog.2214962083.workers.dev) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![API Status](https://img.shields.io/badge/API-v0.6.0-blue)](https://shotog.2214962083.workers.dev/health)
 
 ![ShotOG Basic Template](https://shotog.2214962083.workers.dev/v1/og?title=ShotOG&subtitle=Beautiful%20OG%20images.%20One%20API%20call.&template=product&domain=github.com/nicepkg/shotog)
 
@@ -14,7 +14,7 @@ Every page you share on Twitter, Slack, or Discord needs an OG image. You can:
 
 1. ~~Design each one manually in Figma~~ (doesn't scale)
 2. ~~Run a headless browser on your server~~ (slow, expensive, breaks)
-3. **Call ShotOG's API** — one URL, beautiful image, < 50ms at the edge
+3. **Call ShotOG's API** — one URL, beautiful image, ~50ms at the edge
 
 ShotOG runs on Cloudflare Workers. No cold starts. No servers. Just fast images.
 
@@ -107,6 +107,7 @@ POST /v1/og  (JSON body)
 | `author` | string | No | Author name |
 | `avatar` | string | No | Avatar image URL (shown in blog/social/testimonial) |
 | `logo` | string | No | Logo image URL (shown in basic/product) |
+| `fontUrl` | string | No | URL to TTF/OTF font file (max 5MB, cached 1h) |
 | `domain` | string | No | Domain watermark |
 | `bgColor` | string | No | Background color (hex, e.g. `1a1a2e`) |
 | `textColor` | string | No | Text color (hex) |
@@ -115,6 +116,41 @@ POST /v1/og  (JSON body)
 | `width` | number | No | Image width 200-2400 (default: 1200) |
 | `height` | number | No | Image height 200-1260 (default: 630) |
 | `api_key` | string | No | API key for higher limits |
+
+### Batch Generate (up to 20 images)
+
+```bash
+curl -X POST https://shotog.2214962083.workers.dev/v1/og/batch \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: sk_..." \
+  -d '{
+    "images": [
+      {"id": "hero", "title": "My Product", "template": "product"},
+      {"id": "blog-1", "title": "First Post", "template": "blog", "author": "Alice"},
+      {"id": "blog-2", "title": "Second Post", "template": "blog", "author": "Bob"}
+    ],
+    "defaults": {"format": "png", "width": 1200, "domain": "example.com"}
+  }'
+```
+
+Response:
+```json
+{
+  "results": [
+    {"id": "hero", "success": true, "dataUri": "data:image/png;base64,..."},
+    {"id": "blog-1", "success": true, "dataUri": "data:image/png;base64,..."},
+    {"id": "blog-2", "success": true, "dataUri": "data:image/png;base64,..."}
+  ],
+  "summary": {"total": 3, "succeeded": 3, "failed": 0}
+}
+```
+
+**Batch features:**
+- Max 20 images per request
+- `defaults` object applies to all images (individual params override)
+- Parallel rendering via `Promise.allSettled`
+- Quota pre-check: if insufficient quota, returns 429 before rendering
+- Only successful renders count toward usage
 
 ### Get API Key (Self-Service)
 

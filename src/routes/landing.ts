@@ -76,6 +76,7 @@ export async function landingPage(c: Context<{ Bindings: Env }>) {
         <div class="feature"><span class="dot"></span> Edge-Native (140ms)</div>
         <div class="feature"><span class="dot"></span> PNG & SVG Output</div>
         <div class="feature"><span class="dot"></span> Custom Fonts</div>
+        <div class="feature"><span class="dot"></span> Batch API (20 imgs)</div>
         <div class="feature"><span class="dot"></span> 500 Free/month</div>
       </div>
     </header>
@@ -110,6 +111,26 @@ curl "<span class="str">${baseUrl}/v1/og?title=Hello&fontUrl=https://github.com/
 
 <span class="cmt"># Graceful fallback: if the font URL fails, Inter is used automatically</span>
 <span class="cmt"># Check X-Font-Fallback: true header to detect fallback</span></code></pre>
+    </div>
+
+    <div class="section">
+      <h2>Batch Generation</h2>
+      <p>Generate up to 20 OG images in a single API call. Perfect for blog indexes, sitemaps, and CI/CD pipelines.</p>
+      <pre><code><span class="cmt"># Generate multiple images at once</span>
+curl -X POST <span class="str">${baseUrl}/v1/og/batch</span> \\
+  -H <span class="str">"Content-Type: application/json"</span> \\
+  -H <span class="str">"X-Api-Key: sk_..."</span> \\
+  -d <span class="str">'{
+  "images": [
+    {"id": "hero", "title": "My Product", "template": "product"},
+    {"id": "blog-1", "title": "First Post", "template": "blog", "author": "Alice"},
+    {"id": "blog-2", "title": "Second Post", "template": "blog", "author": "Bob"}
+  ],
+  "defaults": {"format": "png", "width": 1200, "domain": "example.com"}
+}'</span>
+
+<span class="cmt"># Returns JSON with base64 data URIs for each image</span>
+<span class="cmt"># { "results": [{ "id": "hero", "success": true, "dataUri": "data:image/png;base64,..." }, ...] }</span></code></pre>
     </div>
 
     <div class="section">
