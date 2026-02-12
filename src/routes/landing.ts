@@ -16,6 +16,57 @@ export async function landingPage(c: Context<{ Bindings: Env }>) {
   <meta property="og:image" content="${baseUrl}/v1/og?title=ShotOG&subtitle=Screenshot%20%26%20OG%20Images.%20One%20API%20Call.&template=product&eyebrow=API&accentColor=%236366f1">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ShotOG — Screenshot & OG Images API">
+  <meta name="twitter:description" content="Generate beautiful OG images with a single API call. Edge-native, globally fast.">
+  <meta name="twitter:image" content="${baseUrl}/v1/og?title=ShotOG&subtitle=Screenshot%20%26%20OG%20Images.%20One%20API%20Call.&template=product&eyebrow=API&accentColor=%236366f1">
+  <meta property="og:url" content="${baseUrl}/">
+  <meta property="og:site_name" content="ShotOG">
+  <link rel="canonical" href="${baseUrl}/">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="OG image generator, open graph image API, social media image, meta image generator, og:image, twitter card image, cloudflare workers, edge computing, satori, developer tools, API">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ShotOG",
+    "description": "Generate beautiful OG images and website screenshots with a single API call. Edge-native, globally fast, developer-friendly.",
+    "url": "${baseUrl}",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "0",
+      "highPrice": "79",
+      "priceCurrency": "USD",
+      "offerCount": "4"
+    },
+    "featureList": ["8 OG image templates", "Batch generation (up to 20)", "Custom font support via URL", "PNG and SVG output", "Edge-native rendering", "500 free images per month", "Self-service API keys", "External image support (avatar, logo)"],
+    "screenshot": "${baseUrl}/v1/og?title=ShotOG&subtitle=Screenshot%20%26%20OG%20Images.%20One%20API%20Call.&template=product&eyebrow=API",
+    "softwareVersion": "0.6.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true,
+    "creator": {
+      "@type": "Organization",
+      "name": "nicepkg",
+      "url": "https://github.com/nicepkg"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebAPI",
+    "name": "ShotOG API",
+    "description": "REST API for generating OG images with customizable templates, fonts, and batch processing.",
+    "url": "${baseUrl}/docs",
+    "documentation": "${baseUrl}/docs",
+    "termsOfService": "${baseUrl}/pricing",
+    "provider": {
+      "@type": "Organization",
+      "name": "nicepkg"
+    }
+  }
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
