@@ -105,6 +105,8 @@ POST /v1/og  (JSON body)
 | `subtitle` | string | No | Secondary text |
 | `eyebrow` | string | No | Small text above title (category, label) |
 | `author` | string | No | Author name |
+| `avatar` | string | No | Avatar image URL (shown in blog/social/testimonial) |
+| `logo` | string | No | Logo image URL (shown in basic/product) |
 | `domain` | string | No | Domain watermark |
 | `bgColor` | string | No | Background color (hex, e.g. `1a1a2e`) |
 | `textColor` | string | No | Text color (hex) |
