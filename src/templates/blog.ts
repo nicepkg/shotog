@@ -110,6 +110,20 @@ export function blogTemplate(params: OGImageParams) {
                     alignItems: "center",
                   },
                   children: [
+                    params._avatarDataUri
+                      ? {
+                          type: "img",
+                          props: {
+                            src: params._avatarDataUri,
+                            width: 40,
+                            height: 40,
+                            style: {
+                              borderRadius: "50%",
+                              marginRight: "12px",
+                            },
+                          },
+                        }
+                      : null,
                     params.author
                       ? {
                           type: "div",

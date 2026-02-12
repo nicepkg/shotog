@@ -83,25 +83,38 @@ export function testimonialTemplate(params: OGImageParams) {
                     alignItems: "center",
                   },
                   children: [
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          display: "flex",
-                          width: "48px",
-                          height: "48px",
-                          borderRadius: "50%",
-                          background: `linear-gradient(135deg, ${accentColor}, #d97706)`,
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "20px",
-                          fontWeight: 700,
-                          color: "#ffffff",
-                          marginRight: "16px",
+                    params._avatarDataUri
+                      ? {
+                          type: "img",
+                          props: {
+                            src: params._avatarDataUri,
+                            width: 48,
+                            height: 48,
+                            style: {
+                              borderRadius: "50%",
+                              marginRight: "16px",
+                            },
+                          },
+                        }
+                      : {
+                          type: "div",
+                          props: {
+                            style: {
+                              display: "flex",
+                              width: "48px",
+                              height: "48px",
+                              borderRadius: "50%",
+                              background: `linear-gradient(135deg, ${accentColor}, #d97706)`,
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "20px",
+                              fontWeight: 700,
+                              color: "#ffffff",
+                              marginRight: "16px",
+                            },
+                            children: (params.author || "A").charAt(0).toUpperCase(),
+                          },
                         },
-                        children: (params.author || "A").charAt(0).toUpperCase(),
-                      },
-                    },
                     {
                       type: "div",
                       props: {

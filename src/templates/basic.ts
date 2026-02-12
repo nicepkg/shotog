@@ -38,6 +38,18 @@ export function basicTemplate(params: OGImageParams) {
               maxWidth: "1000px",
             },
             children: [
+              params._logoDataUri
+                ? {
+                    type: "img",
+                    props: {
+                      src: params._logoDataUri,
+                      height: 48,
+                      style: {
+                        marginBottom: "24px",
+                      },
+                    },
+                  }
+                : null,
               params.eyebrow
                 ? {
                     type: "div",

@@ -1,6 +1,7 @@
 import type { OGImageParams } from "../types";
 import { getFonts } from "./fonts";
 import { getTemplate } from "../templates";
+import { fetchImageAsDataUri } from "./image";
 
 export async function renderOGImage(params: OGImageParams): Promise<{
   data: ArrayBuffer;
@@ -11,6 +12,14 @@ export async function renderOGImage(params: OGImageParams): Promise<{
   const format = params.format || "png";
   const width = params.width || 1200;
   const height = params.height || 630;
+
+  // Pre-fetch external images in parallel
+  const [avatarDataUri, logoDataUri] = await Promise.all([
+    params.avatar ? fetchImageAsDataUri(params.avatar) : null,
+    params.logo ? fetchImageAsDataUri(params.logo) : null,
+  ]);
+  params._avatarDataUri = avatarDataUri;
+  params._logoDataUri = logoDataUri;
 
   const satori = (await import("@cf-wasm/satori")).default;
   const template = getTemplate(params);

@@ -46,6 +46,19 @@ export function productTemplate(params: OGImageParams) {
               flex: 1,
             },
             children: [
+              // Logo
+              params._logoDataUri
+                ? {
+                    type: "img",
+                    props: {
+                      src: params._logoDataUri,
+                      height: 40,
+                      style: {
+                        marginBottom: "24px",
+                      },
+                    },
+                  }
+                : null,
               // Eyebrow
               params.eyebrow
                 ? {

@@ -148,24 +148,37 @@ export function socialTemplate(params: OGImageParams) {
                         marginTop: "32px",
                       },
                       children: [
-                        {
-                          type: "div",
-                          props: {
-                            style: {
-                              display: "flex",
-                              width: "36px",
-                              height: "36px",
-                              borderRadius: "50%",
-                              background: accentColor,
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "16px",
-                              fontWeight: 700,
-                              marginRight: "12px",
+                        params._avatarDataUri
+                          ? {
+                              type: "img",
+                              props: {
+                                src: params._avatarDataUri,
+                                width: 36,
+                                height: 36,
+                                style: {
+                                  borderRadius: "50%",
+                                  marginRight: "12px",
+                                },
+                              },
+                            }
+                          : {
+                              type: "div",
+                              props: {
+                                style: {
+                                  display: "flex",
+                                  width: "36px",
+                                  height: "36px",
+                                  borderRadius: "50%",
+                                  background: accentColor,
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontSize: "16px",
+                                  fontWeight: 700,
+                                  marginRight: "12px",
+                                },
+                                children: params.author.charAt(0).toUpperCase(),
+                              },
                             },
-                            children: params.author.charAt(0).toUpperCase(),
-                          },
-                        },
                         {
                           type: "div",
                           props: {

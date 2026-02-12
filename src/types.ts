@@ -32,4 +32,7 @@ export type OGImageParams = {
   format?: "png" | "svg";
   width?: number;
   height?: number;
+  /** Pre-fetched image data URIs (populated by render pipeline) */
+  _avatarDataUri?: string | null;
+  _logoDataUri?: string | null;
 };
