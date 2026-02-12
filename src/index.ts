@@ -23,7 +23,7 @@ app.route("/v1/keys", apiKeys);
 
 // Health check
 app.get("/health", (c) => {
-  return c.json({ status: "ok", version: "0.5.0", name: "shotog" });
+  return c.json({ status: "ok", version: "0.6.0", name: "shotog" });
 });
 
 export default app;

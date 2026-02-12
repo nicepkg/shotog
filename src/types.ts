@@ -39,3 +39,40 @@ export type OGImageParams = {
   _avatarDataUri?: string | null;
   _logoDataUri?: string | null;
 };
+
+/** A single image entry in a batch request */
+export type BatchImageInput = Partial<OGImageParams> & {
+  /** User-defined identifier to match results */
+  id: string;
+  title: string;
+};
+
+/** Defaults applied to every image in the batch */
+export type BatchDefaults = Partial<OGImageParams>;
+
+/** POST /v1/og/batch request body */
+export type BatchRequest = {
+  images: BatchImageInput[];
+  defaults?: BatchDefaults;
+};
+
+/** A single result in the batch response */
+export type BatchResult = {
+  id: string;
+  success: boolean;
+  data?: string;
+  contentType?: string;
+  timings?: { svgMs: number; pngMs: number; totalMs: number };
+  error?: string;
+};
+
+/** POST /v1/og/batch response body */
+export type BatchResponse = {
+  results: BatchResult[];
+  summary: {
+    total: number;
+    succeeded: number;
+    failed: number;
+    totalMs: number;
+  };
+};

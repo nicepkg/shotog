@@ -122,6 +122,28 @@ export async function recordUsage(db: D1Database, apiKeyId: string, cached: bool
   }
 }
 
+/**
+ * Record batch usage: increment requests_count by `count` in a single query.
+ */
+export async function recordBatchUsage(db: D1Database, apiKeyId: string, count: number) {
+  if (apiKeyId === "__dev__" || apiKeyId === "__demo__" || count <= 0) return;
+
+  const today = new Date().toISOString().slice(0, 10);
+
+  try {
+    await db.prepare(
+      `INSERT INTO usage (api_key_id, date, requests_count)
+       VALUES (?, ?, ?)
+       ON CONFLICT(api_key_id, date)
+       DO UPDATE SET requests_count = requests_count + ?`
+    )
+      .bind(apiKeyId, today, count, count)
+      .run();
+  } catch {
+    // Non-blocking: don't fail the request if usage tracking fails
+  }
+}
+
 async function hashKey(key: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(key);
